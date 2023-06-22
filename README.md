@@ -1,3 +1,5 @@
+# Trio Challange - Technical design
+
 ## Overview
 
 The task is to build an RESTful API for order management.
@@ -73,6 +75,7 @@ I wont explain each one of the benefits, as these are common standards in softwa
 Endpoints can be accessed by going to http://localhost:5000/docs.
 
 ## Setup
+
 Setup is typically done simply by running
 
 ```
@@ -89,11 +92,17 @@ customer@example.com / test
 ```
 
 By default it's expected to work with the local mailhog instance to mock notification testing.
-At this point, do watch the video to  get more context. 
+At this point, do watch the video to get more context.
+
 ## Integrations
 
 - Amazon SES
   In order yo use SES you need to change the environment variables in the docker image. Mainly, "NOTIFICATIONS_ENV" set to "production", but also
-  boto3 will require your credentials, that right now are added to the compose but would typically come from the secrets manager or injected variables at runtime. 
-  These credentials are access keys in the AWS IAM console for a user, which you must create. You must also send validation emails for sender and receiver. 
-  
+  boto3 will require your credentials, that right now are added to the compose but would typically come from the secrets manager or injected variables at runtime.
+  These credentials are access keys in the AWS IAM console for a user, which you must create. You must also send validation emails for sender and receiver.
+
+## General comments
+
+. I did not realize the second instruction about opening a PR in the repo.
+In a real application, these would have been incremental changes and not a single PR. I missed that!
+. I do expect feedback :)
