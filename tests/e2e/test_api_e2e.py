@@ -104,6 +104,80 @@ async def test_create_order(
     assert response.status_code == 200
 
 
+# @pytest.mark.asyncio
+# async def test_create_order_with_no_product_variations(
+#     client: AsyncClient, db_state_dict_postgres, get_customer_auth_token
+# ):
+#     # Find a product without variations. Tea has none
+#     for i in db_state_dict_postgres["products"]:
+#         if i["name"] == "Tea":
+#             product_id = i["id"]
+#             tea_price = i["price"]
+#     if product_id is None:
+#         pytest_asyncio.fail("No product without variations found")
+#     # Build the order, with no additionalw
+#     order_data = {
+#         "consume_location": enums.ConsumeLocation.IN_HOUSE,
+#         "user_id": db_state_dict_postgres["users"][1]["id"],
+#         "order_items": [
+#             {
+#                 "product_id": product_id,
+#                 "quantity": 1,
+#             }
+#         ]
+#     }
+#     response = await client.post(
+#         "/orders",
+#         content=json.dumps(order_data),
+#         headers={"Authorization": f"Bearer {get_customer_auth_token}"},
+#     )
+
+#     assert response.status_code == 200
+#     # Price should be the same as product price
+#     assert response.json()["total_cost"] == tea_price
+
+
+@pytest.mark.asyncio
+async def test_create_order_with_mixed_variations(
+    client: AsyncClient, db_state_dict_postgres, get_customer_auth_token
+):
+    total_price = 0
+    order_items = []
+    for i in range(len(db_state_dict_postgres["products"])):
+        product = db_state_dict_postgres["products"][i]
+        product_id = product["id"]
+        for variation in db_state_dict_postgres["variations"]:
+            if variation["product_id"] == product_id:
+                variation_id = variation["id"]
+                order_items.append(
+                    {
+                        "product_id": product_id,
+                        "quantity": 1,
+                        "variation_id": variation_id,
+                    })
+                total_price += variation["price"] + product["price"]
+                break
+        else:
+            order_items.append(
+                {"product_id": product_id, "quantity": 1})
+            total_price += product["price"]
+    # Build the order, with no additionals.
+    order_data = {
+        "consume_location": enums.ConsumeLocation.IN_HOUSE,
+        "user_id": db_state_dict_postgres["users"][1]["id"],
+        "order_items": order_items
+    }
+    response = await client.post(
+        "/orders",
+        content=json.dumps(order_data),
+        headers={"Authorization": f"Bearer {get_customer_auth_token}"},
+    )
+
+    assert response.status_code == 200
+    # Price should be the same as product price
+    assert response.json()["total_cost"] == total_price
+
+
 @pytest.mark.asyncio
 async def test_get_catalog(
     client: AsyncClient, db_state_dict_postgres, get_customer_auth_token

@@ -12,11 +12,7 @@ services:
       - redis
       - mailhog
     environment:
-      AWS_ACCESS_KEY_ID: example
-      AWS_SECRET_ACCESS_KEY:  example
-      AWS_DEFAULT_REGION: us-west-1
-      NOTIFICATION_ENV: dev
-      SECRET_KEY: d3717b2a1a2a47fe59ce201c199243f16f2d54f8428edddb15afe324b1a81a19
+      NOTIFICATIONS_ENV: dev
 
   postgres:
     image: postgres

@@ -134,3 +134,11 @@ class AuthenticateUser(Command):
 @dataclass
 class GetCatalog(Command):
     page: int
+
+
+# POC
+
+
+@dataclass
+class NotifyOrderSale(Command):
+    pass

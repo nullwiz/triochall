@@ -31,14 +31,14 @@ class ProductBase(BaseModel):
     name: str
     price: float
     description: str
-    variations: List[Variation] | None
+    variations: List[Variation] | None = []
 
 
 class ProductBaseOptional(BaseModel):
     name: Optional[str] = None
     price: Optional[float] = None
     description: Optional[str] = None
-    variations: Optional[List[Variation]] = None
+    variations: Optional[List[Variation]] = []
 
 
 class Product(ProductBase, IDModel):
@@ -52,7 +52,7 @@ class ProductUpdate(ProductBaseOptional):
 class OrderItemBase(BaseModel):
     quantity: int
     product_id: str
-    variation_id: str
+    variation_id: Optional[str] = None
 
 
 class OrderItem(OrderItemBase):

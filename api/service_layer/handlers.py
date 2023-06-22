@@ -5,9 +5,7 @@ from api.utils.hashoor import hash_password, verify_password
 from api.adapters import notifications
 from api.adapters import redis_eventpublisher
 from api.service_layer import unit_of_work
-from api.config import get_redis_host_and_port
 import uuid
-import redis
 from api.utils.exceptions import (
     OrderNotFound,
     ProductNotFound,
@@ -22,6 +20,7 @@ from api.utils.exceptions import (
 
 
 # Order - Main use case, we could have composition of different handlers aswell.
+# Order - Main use case, we could have composition of different handlers as well.
 async def create_order_handler(
     cmd: commands.CreateOrder, uow: unit_of_work.AbstractUnitOfWork
 ):
@@ -30,20 +29,25 @@ async def create_order_handler(
         total_cost = 0
         order_id = str(uuid.uuid4())
         for item in cmd.order_items:
-            print(item)
             product = await uow.products.get(item["product_id"])
             if product is None:
                 raise ProductNotFound(item["product_id"])
-            variation = await uow.variations.get(item["variation_id"])
-            if variation is None:
-                raise VariationNotFound(item["variation_id"])
-            unit_price = product.price + variation.price
+
+            variation = None
+            unit_price = product.price
+
+            if "variation_id" in item and item["variation_id"] is not None:
+                variation = await uow.variations.get(item["variation_id"])
+                if variation is None:
+                    raise VariationNotFound(item["variation_id"])
+                unit_price += variation.price
+
             total_cost += unit_price * item["quantity"]
             order_items.append(
                 models.OrderItem(
                     quantity=item["quantity"],
                     product_id=item["product_id"],
-                    variation_id=item["variation_id"],
+                    variation_id=item.get("variation_id", None),
                     unit_price=unit_price,
                     order_id=order_id,
                 )
@@ -159,7 +163,7 @@ async def cancel_order_handler(
         order_data["consume_location"] = order_data["consume_location"].value
         order_data["status"] = order_data["status"].value
         await redis_eventpublisher.publish(
-            channel="Orders",
+            channel="orders",
             event="OrderCancelled",
             data=order_data,
         )
@@ -207,12 +211,22 @@ async def update_product_handler(
         if product is None:
             raise ProductNotFound(cmd.id)
 
+        original_price = product.price
         if cmd.variations:
             await product_variations(cmd, product, uow)
 
         update_product_attributes(cmd, product)
 
         await uow.products.update(product)
+        # If price difers 50% send notification that is cheap
+        if product.price * 2 < original_price:
+            await redis_eventpublisher.publish(
+                channel="products",
+                event="ProductDiscount",
+                data={
+                    "event": "ProductDiscount",
+                },
+            )
         await uow.commit()
         return product
 
@@ -305,7 +319,9 @@ async def create_variation_handler(
             if v.name == variation.name:
                 raise InvalidVariationUpdate(
                     variation_id=v.id,
-                    e="Variation name already exists with id " + v.id,
+                    e=Exception(
+                        "Variation name already exists with id %s" % v.id
+                    ),
                 )
         product.add_variation(variation=variation)
         await uow.products.update(product)
@@ -318,6 +334,8 @@ async def delete_variation_handler(
 ):
     async with uow:
         product = await uow.products.get(cmd.product_id)
+        if product is None:
+            raise ProductNotFound(cmd.product_id)
         product.remove_variation(id=cmd.variation_id)
         await uow.products.update(product)
         await uow.commit()
@@ -403,6 +421,17 @@ async def healthcheck_handler(
         return True
 
 
+# POC
+async def notify_order_sale_handler(
+    cmd: commands.NotifyOrderSale,
+    uow: unit_of_work.AbstractUnitOfWork,
+    notifications: notifications.AbstractNotifications,
+):
+    async with uow:
+        await notifications.publish("test@example.com", events.OrderSale())
+        return "OK"
+
+
 EVENT_HANDLERS = {
     events.OrderStatusChanged: [
         handle_order_change_event,
@@ -432,4 +461,5 @@ COMMAND_HANDLERS = {
     commands.GetOrder: get_order_handler,
     commands.CreateOrder: create_order_handler,
     commands.UpdateOrderStatus: update_order_status_handler,
+    commands.NotifyOrderSale: notify_order_sale_handler,
 }

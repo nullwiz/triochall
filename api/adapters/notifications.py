@@ -42,6 +42,7 @@ class EmailAWSNotifications(AbstractNotifications):
 
     async def send(self, destination, message):
         self.logger.info(f"Sending email to {destination}")
+        print(f"Sending email to {destination}")
         if isinstance(message, events.OrderStatusChanged):
             await self._send_order_changed(destination, message)
         if isinstance(message, events.OrderCreated):
@@ -86,7 +87,8 @@ class EmailAWSNotifications(AbstractNotifications):
         except ClientError as e:
             self.logger.error(e.response["Error"]["Message"])
         else:
-            self.logger.info(f"Email sent! Message ID: {response['MessageId']}")
+            self.logger.info(
+                f"Email sent! Message ID: {response['MessageId']}")
 
     async def _send_order_created(
         self, destination, message: events.OrderCreated
@@ -140,11 +142,26 @@ class EmailLocalNotifications(AbstractNotifications):
             await self._send_order_changed(destination, message)
         if isinstance(message, events.OrderCreated):
             await self._send_order_created(destination, message)
+        if isinstance(message, events.OrderSale):
+            await self._send_order_sale(destination, message)
 
     async def render_template(self, template, **kwargs):
         env = Environment(loader=FileSystemLoader("api/templates"))
         template = env.get_template(template)
         return template.render(**kwargs)
+
+    async def _send_order_sale(self, destination, message: events.OrderSale):
+        # send email with MailHog here, just text
+        self.logger.info(f"Sending email to {destination}")
+        print("Order Sale!")
+        body_msg = f"Item {message.product_id} is on sale!, price is \
+                {message.price}, go to {message.url} to buy it!"
+        email_msg = MIMEText(body_msg, "plain", "utf-8")
+        email_msg["Subject"] = Header("This item is on sale!")
+        email_msg["From"] = "test@example.com"
+        email_msg["To"] = destination
+        await self.client.connect()
+        await self.client.send_message(email_msg)
 
     async def _send_order_changed(
         self, destination, message: events.OrderStatusChanged

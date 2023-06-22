@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import date
+from datetime import date, timedelta
 from api.domain.enums import OrderStatus
 
 
@@ -39,6 +39,17 @@ class OrderCreated(Event):
     consume_location: str
     order_items: list
     created_at: date
+
+
+@dataclass
+class OrderSale(Event):
+    product_id: str = "SomeProductId"
+    url: str = "https://www.google.com"
+    price = 100.0
+    discount: float = 50.0
+    sale_price: float = 50.0
+    sale_start: date = date.today()
+    sale_end: date = date.today() + timedelta(days=7)
 
 
 # We might have other event relevant here, to track relevant info

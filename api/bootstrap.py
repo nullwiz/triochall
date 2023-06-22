@@ -23,7 +23,7 @@ def bootstrap(
     ] = redis_eventpublisher.publish,
 ) -> messagebus.MessageBus:
     if notifications is None:
-        environment = os.getenv("NOTIFICATIONS_ENV", "production")
+        environment = os.getenv("NOTIFICATIONS_ENV", "dev")
         if environment == "production":
             notifications = EmailAWSNotifications()
         else:

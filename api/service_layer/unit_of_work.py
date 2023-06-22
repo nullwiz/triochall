@@ -30,8 +30,7 @@ class AbstractUnitOfWork(abc.ABC):
         await self._commit()
 
     def collect_new_events(self):
-        # These are the only two repositories that generate events.
-        repos = [self.users, self.orders]
+        repos = [self.users, self.orders, self.products]
         for repo in repos:
             for obj in repo.seen:
                 while obj._events:

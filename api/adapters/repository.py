@@ -274,14 +274,15 @@ class SqlAlchemyProductRepository(AbstractProductRepository):
         self.session.add(product)
 
     async def _get(self, id):
-        result = await self.session.execute(
-            select(models.Product)
-            .outerjoin(models.Variation, models.Product.variations)
-            .options(contains_eager(models.Product.variations))
-            .filter(models.Product.id == id, models.Product.is_deleted == 0,
-                    models.Variation.is_deleted == 0)
-        )
-        return result.scalars().first()
+        query = (select(models.Product)
+                 .filter(models.Product.id == id, models.Product.is_deleted == 0)
+                 .options(joinedload(models.Product.variations))
+                 )
+        result = await self.session.execute(query)
+        product = result.scalars().first()
+
+        if product is not None:
+            return product
 
     async def _delete(self, product):
         product.is_deleted = 1

@@ -73,16 +73,13 @@ I wont explain each one of the benefits, as these are common standards in softwa
 Endpoints can be accessed by going to http://localhost:5000/docs.
 
 ## Setup
-
 Setup is typically done simply by running
 
 ```
 make setup
 ```
 
-Expects docker to be installed.
-
-After this we should have our containers running, and our test would run aswell.
+Expects docker to be installed, and after these **all test should pass and we should have about 80% coverage** .
 The default configuration is that products and variations are created as the challenge description describes.
 There are also the following users:
 
@@ -92,13 +89,11 @@ customer@example.com / test
 ```
 
 By default it's expected to work with the local mailhog instance to mock notification testing.
-
+At this point, do watch the video to  get more context. 
 ## Integrations
 
 - Amazon SES
-  In order yo use SES you need to change the environment variables in the docker image. Mainly, "environment" set to "production", but also
-  boto3 will require your credentials, that right now are added to the image environment but would typically come from the secrets manager or injected variables at runtime. These credentials are access keys in the AWS IAM console for a user, which you must create.
-- A redis eventpublisher
-  This is used as added as a POC, you can see it being used in the update_order_status_handler().  
-  If you subscribe to the pubsub channel, using the redis-cli or the redis insight GUI, you can see the messages posted.
-  In theory, we could consume events/commands from here aswell.
+  In order yo use SES you need to change the environment variables in the docker image. Mainly, "NOTIFICATIONS_ENV" set to "production", but also
+  boto3 will require your credentials, that right now are added to the compose but would typically come from the secrets manager or injected variables at runtime. 
+  These credentials are access keys in the AWS IAM console for a user, which you must create. You must also send validation emails for sender and receiver. 
+  
