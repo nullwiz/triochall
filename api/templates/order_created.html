@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Order Created</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f3f3f3;
+      }
+      .container {
+        max-width: 600px;
+        margin: auto;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+      }
+      h1 {
+        color: #333;
+        margin-bottom: 20px;
+      }
+      p {
+        line-height: 1.5;
+        color: #666;
+      }
+      ul {
+        padding: 0;
+      }
+      li {
+        list-style-type: none;
+        border-bottom: 1px solid #eee;
+        padding: 10px 0;
+      }
+      li span {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Your Order Has Been Created</h1>
+      <p>Dear customer,</p>
+      <p>
+        We are writing to inform you that your order has been successfully
+        created. Here are the details:
+      </p>
+      <p><span>Status:</span> {{ status }}</p>
+      <p><span>Order ID:</span> {{ order_id }}</p>
+      <p><span>Total Cost:</span> {{ total_cost }}</p>
+      <p><span>Consume Location:</span> {{ consume_location }}</p>
+      <p><span>Created At:</span> {{ created_at }}</p>
+      <p><span>Updated At:</span> {{ updated_at }}</p>
+      <p>Order Items:</p>
+      <ul>
+        {% for item in order_items %}
+        <li>
+          <span>Product ID:</span> {{ item.product_id }} <br />
+          <span>Variation ID:</span> {{ item.variation_id }} <br />
+          <span>Quantity:</span> {{ item.quantity }} <br />
+          <span>Unit Price:</span> {{ item.unit_price }}
+        </li>
+        {% endfor %}
+      </ul>
+      <p>Thank you for shopping with us.</p>
+      <p>Best Regards,</p>
+      <p>Your Ecommerce Team</p>
+    </div>
+  </body>
+</html>

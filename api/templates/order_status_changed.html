@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Status Changed</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F3F3F3;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        p {
+            line-height: 1.5;
+            color: #666;
+        }
+        ul {
+            padding: 0;
+        }
+        li {
+            list-style-type: none;
+            border-bottom: 1px solid #EEE;
+            padding: 10px 0;
+        }
+        li span {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Your Order Status Has Changed</h1>
+        <p>Dear customer,</p>
+        <p>We are writing to inform you that the status of your order {{ order_id }} has changed. Here are the details:</p>
+        <p>Status: {{ status }}</p>
+        <p>Updated At: {{ updated_at }}</p>
+        <ul>
+        {% for item in order_items %}
+            <li>
+                <span>Product ID:</span> {{ item.product_id }} <br>
+                <span>Variation ID:</span> {{ item.variation_id }} <br>
+                <span>Quantity:</span> {{ item.quantity }} <br>
+                <span>Unit Price:</span> {{ item.unit_price }} 
+            </li>
+        {% endfor %}
+        </ul>
+        <p>Thank you for shopping with us.</p>
+        <p>Best Regards,</p>
+        <p>Triochall Ecommerce Team</p>
+    </div>
+</body>
+</html>

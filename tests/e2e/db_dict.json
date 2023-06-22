@@ -1,0 +1,312 @@
+{
+    "order_items": [
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "ba706cc8-c8e7-43b3-baef-e1e6cf5bb142",
+            "order_id": "b28fcf3b-e17a-4eb2-a909-b6984ec2b110",
+            "product_id": "37e8a8a7-b26d-40d6-a917-8761084a9d4e",
+            "quantity": 1,
+            "unit_price": 81.44,
+            "updated_at": "2023-06-22 16:12:13",
+            "variation_id": "e165d4ae-ec89-433d-b3e1-e3411b3b04b1"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "facb4b38-7d72-4d47-8793-8c4713e54e08",
+            "order_id": "5f2801ce-8ceb-463f-9168-d8f172abf7fb",
+            "product_id": "bdb211a6-838c-40fe-8e99-f7dee7b45ca1",
+            "quantity": 1,
+            "unit_price": 26.78,
+            "updated_at": "2023-06-22 16:12:13",
+            "variation_id": "46fa21e8-aaa3-4841-a3e2-b87ce10840bc"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "6341afe1-f571-4dcb-8aed-bc928991d131",
+            "order_id": "e6be1d72-8b13-4c4a-9a33-93dc99e76b96",
+            "product_id": "9ddaa6d3-1079-4e9f-a6b7-179a0c172784",
+            "quantity": 1,
+            "unit_price": 73.45,
+            "updated_at": "2023-06-22 16:12:13",
+            "variation_id": "1f3794b9-6bc7-4a10-990c-b437ec324a04"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "e913f80f-dba1-48b7-a433-c7a438a1ae8c",
+            "order_id": "65759d78-451e-4051-ad7f-ade8d53e0820",
+            "product_id": "caafe8f4-8b49-44a5-9f10-c86d03613452",
+            "quantity": 1,
+            "unit_price": 83.67,
+            "updated_at": "2023-06-22 16:12:13",
+            "variation_id": "b5380ee8-ba13-4051-bc36-e22d6f15e284"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "53787347-a2ca-46ca-b058-d7110b564cdb",
+            "order_id": "f3972a5a-0a16-4eb6-bf73-00f06be293bd",
+            "product_id": "18217ea1-65f5-44a6-89e7-5e5fa14c101a",
+            "quantity": 1,
+            "unit_price": 50.83,
+            "updated_at": "2023-06-22 16:12:13",
+            "variation_id": "bcb341e2-1071-4438-9bc1-c9adf6730726"
+        }
+    ],
+    "orders": [
+        {
+            "consume_location": "IN_HOUSE",
+            "created_at": "2023-06-22 16:12:13",
+            "id": "b28fcf3b-e17a-4eb2-a909-b6984ec2b110",
+            "status": "WAITING",
+            "total_cost": 81.44,
+            "updated_at": "2023-06-22 16:12:13",
+            "user_id": "5f6459dc-d1c8-441f-bbd9-712560e14053"
+        },
+        {
+            "consume_location": "IN_HOUSE",
+            "created_at": "2023-06-22 16:12:13",
+            "id": "5f2801ce-8ceb-463f-9168-d8f172abf7fb",
+            "status": "WAITING",
+            "total_cost": 26.78,
+            "updated_at": "2023-06-22 16:12:13",
+            "user_id": "5f6459dc-d1c8-441f-bbd9-712560e14053"
+        },
+        {
+            "consume_location": "IN_HOUSE",
+            "created_at": "2023-06-22 16:12:13",
+            "id": "e6be1d72-8b13-4c4a-9a33-93dc99e76b96",
+            "status": "WAITING",
+            "total_cost": 73.45,
+            "updated_at": "2023-06-22 16:12:13",
+            "user_id": "5f6459dc-d1c8-441f-bbd9-712560e14053"
+        },
+        {
+            "consume_location": "IN_HOUSE",
+            "created_at": "2023-06-22 16:12:13",
+            "id": "65759d78-451e-4051-ad7f-ade8d53e0820",
+            "status": "WAITING",
+            "total_cost": 83.67,
+            "updated_at": "2023-06-22 16:12:13",
+            "user_id": "5f6459dc-d1c8-441f-bbd9-712560e14053"
+        },
+        {
+            "consume_location": "IN_HOUSE",
+            "created_at": "2023-06-22 16:12:13",
+            "id": "f3972a5a-0a16-4eb6-bf73-00f06be293bd",
+            "status": "WAITING",
+            "total_cost": 50.83,
+            "updated_at": "2023-06-22 16:12:13",
+            "user_id": "5f6459dc-d1c8-441f-bbd9-712560e14053"
+        }
+    ],
+    "products": [
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "description": "This is a description for Latte",
+            "id": "37e8a8a7-b26d-40d6-a917-8761084a9d4e",
+            "is_deleted": 0,
+            "name": "Latte",
+            "price": 40.9,
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "description": "This is a description for Cappuccino",
+            "id": "bdb211a6-838c-40fe-8e99-f7dee7b45ca1",
+            "is_deleted": 0,
+            "name": "Cappuccino",
+            "price": 32.84,
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "description": "This is a description for Iced Drinks",
+            "id": "9ddaa6d3-1079-4e9f-a6b7-179a0c172784",
+            "is_deleted": 0,
+            "name": "Iced Drinks",
+            "price": 26.43,
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "description": "This is a description for Tea",
+            "id": "c347e056-a39a-4c83-958d-072fd95cf99c",
+            "is_deleted": 0,
+            "name": "Tea",
+            "price": 17.71,
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "description": "This is a description for Hot Chocolate",
+            "id": "caafe8f4-8b49-44a5-9f10-c86d03613452",
+            "is_deleted": 0,
+            "name": "Hot Chocolate",
+            "price": 79.33,
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "description": "This is a description for Donuts",
+            "id": "18217ea1-65f5-44a6-89e7-5e5fa14c101a",
+            "is_deleted": 0,
+            "name": "Donuts",
+            "price": 34.03,
+            "updated_at": "2023-06-22 16:12:13"
+        }
+    ],
+    "users": [
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "email": "manager@example.com",
+            "id": "2b9fd795-d3f8-40a6-b11f-004e8736345d",
+            "password": "$2b$12$vN.4Bv3xfTsvtf.P5iCGy.u7ibPrLS0xk7YQbjKMFo3e7egDVdQda",
+            "role": "MANAGER",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "email": "customer@example.com",
+            "id": "5f6459dc-d1c8-441f-bbd9-712560e14053",
+            "password": "$2b$12$r3MfEloMywgeaG3p8PuxJuKSrD0u9heyJnLHJUOXT43KqNmsO9yea",
+            "role": "CUSTOMER",
+            "updated_at": "2023-06-22 16:12:13"
+        }
+    ],
+    "variations": [
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "e165d4ae-ec89-433d-b3e1-e3411b3b04b1",
+            "is_deleted": 0,
+            "name": "Pumpkin Spice",
+            "price": 81.44,
+            "product_id": "37e8a8a7-b26d-40d6-a917-8761084a9d4e",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "f5913263-e0a8-4f32-bbcc-f20e0d8f4635",
+            "is_deleted": 0,
+            "name": "Vanilla",
+            "price": 66.49,
+            "product_id": "37e8a8a7-b26d-40d6-a917-8761084a9d4e",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "afe7abf6-e27e-4dca-bb18-ac5326274588",
+            "is_deleted": 0,
+            "name": "Hazelnut",
+            "price": 91.98,
+            "product_id": "37e8a8a7-b26d-40d6-a917-8761084a9d4e",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "46fa21e8-aaa3-4841-a3e2-b87ce10840bc",
+            "is_deleted": 0,
+            "name": "Small",
+            "price": 26.78,
+            "product_id": "bdb211a6-838c-40fe-8e99-f7dee7b45ca1",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "144d93c1-5d7f-43d2-a467-71a59bf0da17",
+            "is_deleted": 0,
+            "name": "Medium",
+            "price": 27.37,
+            "product_id": "bdb211a6-838c-40fe-8e99-f7dee7b45ca1",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "8b324f3e-c300-4467-9a0d-2192631a09d2",
+            "is_deleted": 0,
+            "name": "Large",
+            "price": 92.28,
+            "product_id": "bdb211a6-838c-40fe-8e99-f7dee7b45ca1",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "1f3794b9-6bc7-4a10-990c-b437ec324a04",
+            "is_deleted": 0,
+            "name": "Smoothie",
+            "price": 73.45,
+            "product_id": "9ddaa6d3-1079-4e9f-a6b7-179a0c172784",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "37c91066-06de-4470-85ea-c977501f16f8",
+            "is_deleted": 0,
+            "name": "Iced Coffee",
+            "price": 25.95,
+            "product_id": "9ddaa6d3-1079-4e9f-a6b7-179a0c172784",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "441c1189-e8a1-43c2-99cf-17080b3f39e9",
+            "is_deleted": 0,
+            "name": "Iced Macchiato",
+            "price": 85.45,
+            "product_id": "9ddaa6d3-1079-4e9f-a6b7-179a0c172784",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "b5380ee8-ba13-4051-bc36-e22d6f15e284",
+            "is_deleted": 0,
+            "name": "Small",
+            "price": 83.67,
+            "product_id": "caafe8f4-8b49-44a5-9f10-c86d03613452",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "af27972f-4e47-4a25-b21f-e6867113cbc5",
+            "is_deleted": 0,
+            "name": "Medium",
+            "price": 26.67,
+            "product_id": "caafe8f4-8b49-44a5-9f10-c86d03613452",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "8256637d-20b4-4af1-a2d1-868fa47e5246",
+            "is_deleted": 0,
+            "name": "Large",
+            "price": 50.4,
+            "product_id": "caafe8f4-8b49-44a5-9f10-c86d03613452",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "bcb341e2-1071-4438-9bc1-c9adf6730726",
+            "is_deleted": 0,
+            "name": "Glazed",
+            "price": 50.83,
+            "product_id": "18217ea1-65f5-44a6-89e7-5e5fa14c101a",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "4e227615-2e33-4e1d-95ba-54b401621aaf",
+            "is_deleted": 0,
+            "name": "Jelly",
+            "price": 62.49,
+            "product_id": "18217ea1-65f5-44a6-89e7-5e5fa14c101a",
+            "updated_at": "2023-06-22 16:12:13"
+        },
+        {
+            "created_at": "2023-06-22 16:12:13",
+            "id": "2d1688da-c5b0-45ad-aff8-1b3909ac0a60",
+            "is_deleted": 0,
+            "name": "Boston Cream",
+            "price": 37.07,
+            "product_id": "18217ea1-65f5-44a6-89e7-5e5fa14c101a",
+            "updated_at": "2023-06-22 16:12:13"
+        }
+    ]
+}

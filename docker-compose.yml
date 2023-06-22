@@ -1,0 +1,50 @@
+version: "3.0"
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    depends_on:
+      - postgres
+      - redis
+      - mailhog
+    environment:
+      AWS_ACCESS_KEY_ID: example
+      AWS_SECRET_ACCESS_KEY:  example
+      AWS_DEFAULT_REGION: us-west-1
+      NOTIFICATION_ENV: dev
+      SECRET_KEY: d3717b2a1a2a47fe59ce201c199243f16f2d54f8428edddb15afe324b1a81a19
+
+  postgres:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: triochall
+    ports:
+      - 5432:5432
+  redis:
+    image: redis
+    restart: always
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: redis-cli ping
+      interval: 3s
+      timeout: 5s
+      retries: 5
+
+  redisinsight:
+    image: "redislabs/redisinsight:latest"
+    ports:
+      - "127.0.0.1:8001:8001"
+
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - "1025:1025"
+      - "8025:8025"
