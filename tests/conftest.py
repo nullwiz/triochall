@@ -55,6 +55,7 @@ async def create_db(in_memory_sqlite_db):
     async with in_memory_sqlite_db.begin() as conn:
         await conn.run_sync(metadata.drop_all)
         clear_mappers()
+    await conn.close()
     await in_memory_sqlite_db.dispose()
 
 
