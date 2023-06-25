@@ -32,8 +32,6 @@ async def pong(m, bus):
             print(result)
     except Exception as e:
         logger.error(e)
-        logger.error(e)
-
         pass
 
 

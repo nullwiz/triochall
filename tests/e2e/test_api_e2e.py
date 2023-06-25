@@ -12,7 +12,6 @@ import asyncio
 import pytest_asyncio
 
 logging.basicConfig(level=logging.INFO)
-api_url = "http://localhost:5000"  # replace with your API url
 
 
 @pytest.fixture
@@ -103,9 +102,7 @@ async def test_create_order(
 
     assert response.status_code == 200
 
-# For some reason, these next two tests pass,
-# but make the application hang: both the tests and the actual application.
-# not sure what could be happening here yet.
+
 # @pytest.mark.asyncio
 # async def test_create_order_with_no_product_variations(
 #     client: AsyncClient, db_state_dict_postgres, get_customer_auth_token

@@ -132,6 +132,7 @@ class Order:
     order_items: List[OrderItem]
     status: OrderStatus = OrderStatus.WAITING
     id: str | None = None
+    is_deleted: int = 0
     _events: List[events.Event] = field(default_factory=list)
     created_at: datetime | None = None
     updated_at: datetime | None = None

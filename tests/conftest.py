@@ -72,16 +72,8 @@ async def session(sqlite_session_factory):
 
 
 @pytest_asyncio.fixture(scope="session")
-async def postgres_async_engine(request):
-    engine = create_async_engine(
-        get_postgres_uri(), future=True, poolclass=NullPool
-    )
-
-    def fin():
-        engine.sync_engine.dispose()
-
-    request.addfinalizer(fin)
-
+async def postgres_async_engine():
+    engine = create_async_engine(get_postgres_uri(), future=True)
     return engine
 
 
@@ -98,8 +90,8 @@ async def postgres_create(postgres_async_engine):
     async with postgres_async_engine.begin() as conn:
         await conn.run_sync(metadata.drop_all)
         clear_mappers()
-    await conn.close()
-    await postgres_async_engine.dispose()
+        await conn.close()
+        await postgres_async_engine.dispose()
 
 
 async def wait_for_postgres_to_come_up(engine):

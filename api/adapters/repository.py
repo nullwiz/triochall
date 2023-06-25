@@ -149,9 +149,10 @@ class AbstractOrderRepository(abc.ABC):
 
     async def add(self, order: models.Order):
         await self._add(order)
-        # Notify users of their order being created.
+        # Notify users of their order being created, pop non relevant info
         order_event = asdict(order)
         order_event.pop("_events")
+        order_event.pop("is_deleted")
         order.append_event(OrderCreated(**order_event))
         self.seen.add(order)
 
@@ -234,6 +235,7 @@ class AbstractOrderItemRepository(abc.ABC):
     async def _update(self, order_item: models.OrderItem):
         raise NotImplementedError
 
+    @abc.abstractmethod
     async def _delete(self, order_item: models.OrderItem):
         raise NotImplementedError
 
@@ -274,10 +276,11 @@ class SqlAlchemyProductRepository(AbstractProductRepository):
         self.session.add(product)
 
     async def _get(self, id):
-        query = (select(models.Product)
-                 .filter(models.Product.id == id, models.Product.is_deleted == 0)
-                 .options(joinedload(models.Product.variations))
-                 )
+        query = (
+            select(models.Product)
+            .filter(models.Product.id == id, models.Product.is_deleted == 0)
+            .options(joinedload(models.Product.variations))
+        )
         result = await self.session.execute(query)
         product = result.scalars().first()
 
@@ -294,7 +297,9 @@ class SqlAlchemyProductRepository(AbstractProductRepository):
             .outerjoin(models.Variation, models.Product.variations)
             .options(contains_eager(models.Product.variations))
             .order_by(models.Product.id)
-            .filter(models.Product.is_deleted == 0, models.Variation.is_deleted == 0)
+            .filter(
+                models.Product.is_deleted == 0, models.Variation.is_deleted == 0
+            )
             .offset((page - 1) * page_size)
             .limit(page_size)
         )
@@ -376,16 +381,15 @@ class SqlAlchemyOrderRepository(AbstractOrderRepository):
         return result.scalars().unique().all()
 
     async def _delete(self, order):
-        await self.session.execite(
-            select(models.Order).filter_by(id=order.id).delete()
-        )
+        order.is_deleted = 1
+        await self.session.merge(order)
 
     async def _update(self, order):
         await self.session.merge(order)
 
 
 class SqlAlchemyOrderItemRepository(AbstractOrderItemRepository):
-    def __init__(self, session):
+    def __init__(self, session: AsyncSession):
         self.session = session
         super().__init__()
 
@@ -409,9 +413,7 @@ class SqlAlchemyOrderItemRepository(AbstractOrderItemRepository):
         return result.scalars().all()
 
     async def _delete(self, order_item):
-        await self.session.execute(
-            select(models.OrderItem).filter_by(id=order_item.id).delete()
-        )
+        await self.session.delete(order_item)
 
     async def _update(self, order_item):
         await self.session.merge(order_item)

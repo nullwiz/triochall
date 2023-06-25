@@ -20,15 +20,5 @@ COPY . .
 # Expose the FastAPI port
 EXPOSE 5000 
 
-# Set environment variables for database and Redis connection
-ENV DB_HOST=postgres
-ENV REDIS_HOST=redis
-# switch databases here
-ENV UOW=sqlalchemy
-
-# If we were deploying in prod, for these we would use AWS Secrets Manager
-# given we are using ECS, or any other secret manager. 
-# JWT
-ENV SECRET_KEY="d3717b2a1a2a47fe59ce201c199243f16f2d54f8428edddb15afe324b1a81a19"
 # Run the FastAPI application with Uvicorn
 CMD ["uvicorn", "api.entrypoints.app:app", "--host", "0.0.0.0", "--port", "5000", "--workers", "4"]

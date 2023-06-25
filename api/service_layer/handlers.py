@@ -77,8 +77,6 @@ async def update_order_status_handler(
 ):
     async with uow:
         order = await uow.orders.get(cmd.id)
-        # For loop which creates a list of order items
-
         if order is None:
             raise OrderNotFound(cmd.id)
         try:
@@ -239,7 +237,6 @@ async def product_variations(cmd, product, uow):
         if var not in product.get_active_variations():
             product.variations.append(var)
         else:
-            # We update with new values
             for attr, value in v.items():
                 if value is not None:
                     setattr(var, attr, value)
@@ -311,7 +308,6 @@ async def create_variation_handler(
 ):
     async with uow:
         variation = models.Variation(**asdict(cmd))
-        # enforce one name per variation
         product = await uow.products.get(cmd.product_id)
         if product is None:
             raise ProductNotFound(cmd.product_id)
@@ -379,7 +375,6 @@ async def create_user_handler(
     async with uow:
         cmd_dict = asdict(cmd)
         cmd_dict["role"] = cmd_dict["role"].value.upper()
-        # Hash pw
         cmd_dict["password"] = hash_password(cmd_dict["password"])
         user = models.User(**cmd_dict)
         await uow.users.add(user)

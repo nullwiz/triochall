@@ -9,7 +9,6 @@ from sqlalchemy import text
 import random
 import uuid
 from sqlalchemy import create_engine
-import asyncio
 import time
 
 
@@ -19,11 +18,9 @@ def main(drop=True, create=False):
     connection_string = get_sync_postgres_uri()
 
     engine = create_engine(connection_string)
-    # Wait for postgres to be up.
     if drop:
         drop_tables(engine)
         print("Tables dropped.")
-    # Tables are always created. They are not recreated if they already exist.
     create_tables(engine)
     print("Tables created.")
     if create:
@@ -147,8 +144,6 @@ def create_initial_data(engine):
 
 
 async def create_initial_data_async(conn):
-    # Wait for postgres
-    # Create a manager
     manager_id = str(uuid.uuid4())
     await conn.execute(
         user.insert(),

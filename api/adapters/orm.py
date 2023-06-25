@@ -81,6 +81,7 @@ order = Table(
     ),
     Column("total_cost", Float(), nullable=False),
     Column("user_id", String(36), ForeignKey("users.id")),
+    Column("is_deleted", Integer(), nullable=False, default=0),
     Column("created_at", DateTime, server_default=text("CURRENT_TIMESTAMP")),
     Column("updated_at", DateTime, server_default=text("CURRENT_TIMESTAMP")),
 )
@@ -156,6 +157,7 @@ def has_started_mappers():
 
 def clear_mappers():
     mapper_registry.dispose()
+
 
 # Orm events, not persisted in the database
 

@@ -11,9 +11,7 @@ pydantic
 passlib[bcrypt]
 psycopg2-binary
 pytz
-pandas
 requests
-timezonefinder
 gunicorn
 motor
 pytest-asyncio
@@ -22,5 +20,8 @@ jinja2
 pytest-mock
 coverage
 aiosmtplib
-mailchimp3
 gevent
+alembic
+python-dotenv
+pytest
+pathlib
