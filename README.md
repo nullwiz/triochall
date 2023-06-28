@@ -90,7 +90,7 @@ Endpoints can be accessed by going to http://localhost:5000/docs.
 Setup is typically done simply by running
 
 ```
-
+make env
 make setup
 
 ```
