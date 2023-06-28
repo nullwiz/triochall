@@ -11,10 +11,10 @@ env:
 	python3 -m venv .venv
 	. .venv/bin/activate && pip install -r requirements.txt
 buildb:
-	. .venv/bin/activate && DB_HOST=localhost python api/db/manage_postgres_tables.py --drop 
-	. .venv/bin/activate && DB_HOST=localhost python api/db/redis_flushall.py
+	. .venv/bin/activate && PYTHONPATH=${PWD} DB_HOST=localhost python api/db/manage_postgres_tables.py --drop 
+	. .venv/bin/activate && PYTHONPATH=${PWD} DB_HOST=localhost python api/db/redis_flushall.py
 initialdata:
-	. .venv/bin/activate && DB_HOST=localhost python api/db/manage_postgres_tables.py --drop --create
+	. .venv/bin/activate && PYTHONPATH=${PWD} DB_HOST=localhost python api/db/manage_postgres_tables.py --drop --create
 up:
 	docker-compose up -d
 
@@ -22,7 +22,7 @@ up-db:
 	docker-compose up -d postgres redis redisinsight
 
 coverage:
-	DB_HOST=localhost REDIS_HOST=localhost coverage run --concurrency=greenlet --source api/ -m pytest tests/ -v 
+	. .venv/bin/activate && PYTHONPATH=${PWD} DB_HOST=localhost REDIS_HOST=localhost coverage run --concurrency=greenlet --source api/ -m pytest tests/ -v 
 
 report:
-	coverage report -m
+	. .venv/bin/activate && PYTHONPATH=${PWD} coverage report -m

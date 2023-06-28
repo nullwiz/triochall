@@ -32,7 +32,7 @@ async def test_cancelled_order_email(bus, db_state_dict_sqlite):
     result = await bus.handle(
         commands.CancelOrder(order_id=order_id, user_id=user_id)
     )
-    assert result[1] == "Order cancelled successfully"
+    assert result[1] == "Order cancelled successfully"  
     assert result[0] is True
     email = get_last_mailhog_email()
     assert email["Raw"]["From"] == "test@example.com"

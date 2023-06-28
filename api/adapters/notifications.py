@@ -178,7 +178,7 @@ class EmailLocalNotifications(AbstractNotifications):
         # send email with MailHog here
         email_msg = MIMEText(html_template, "html", "utf-8")
         email_msg["Subject"] = Header(
-            f"Your order status is updated to {message.status}"
+            f"Your order status is updated to {message.status.value}"
         )
         email_msg["From"] = "test@example.com"
         email_msg["To"] = destination
