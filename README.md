@@ -1,8 +1,6 @@
-# Trio Challange - Technical design
-
 ## Overview
 
-The task is to build an RESTful API for order management.
+A RESTful API for order management.
 
 The main concepts to be tackled are classic to an ecommerce application: **users** (with different roles, manager and customer),
 **products** with different **variations** (not part of the aggregate, as the product can exist without a variation, Tea example),
